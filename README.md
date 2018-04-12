@@ -151,3 +151,48 @@
          (append (all-names--element (first loe))
               (all-names--loe (rest loe)))])) 
 ```
+
+### April 12th 2018 ###
+- Backtrack search on BST:
+```
+
+; 
+; PROBLEM
+; 
+; Design a function that consumes String and Element and looks for a data element with the given 
+; name. If it finds that element it produces the data, otherwise it produces false.
+; 
+
+
+;; String Element -> Integer or false
+;; String ListOfElement -> Integer or false
+;; search the given tree for an element with the given name, produce data if found; false otherwise
+(check-expect (find--loe "F3" empty) false)
+(check-expect (find--element "F3" F1) false)
+(check-expect (find--element "F3" F3) 3)
+(check-expect (find--element "D6" D6) 0)
+(check-expect (find--element "F3" D4) false)
+(check-expect (find--element "F1" D4) 1)
+(check-expect (find--element "F2" D4) 2)
+(check-expect (find--loe "F2" (cons F1 (cons F2 empty))) 2)
+(check-expect (find--loe "F3" (cons F1 (cons F2 empty))) false) 
+(check-expect (find--element "D4" D4) 0)
+(check-expect (find--element "F3" D6) 3)
+(check-expect (find--element "F1" D6) 1)
+
+;(define (find--element n e) false) ;stub
+;(define (find--loe n loe) false) ;stub
+
+
+(define (find--element n e)
+  (if (string=? (elt-name e) n)    
+      (elt-data e)    
+      (find--loe n (elt-subs e))))
+
+(define (find--loe n loe)
+  (cond [(empty? loe) false]
+        [else
+         (if (not (false? (find--element n (first loe)))) ;;is it found in (first loe)?
+             (find--element n (first loe))
+             (find--loe n (rest loe)))]))  ;;produce Integer or false depending on whether its found in (rest loe)
+```
