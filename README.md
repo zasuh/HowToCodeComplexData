@@ -427,3 +427,26 @@
         [(and (cons? lstb) (empty? lsta)) (... lstb ...)]
         [(and (cons? lsta) (cons? lstb)) (... lsta lstb ...)]))
 ```
+
+### April 15th 2018 ###
+- Solution for 2 One-of P2: Merge
+```
+;; ListOfNumber ListOfNumber -> ListOfNumber
+;; Consumes two lists and produces a combined list
+(check-expect (merge empty empty) empty)
+(check-expect (merge empty (list 1 2 3)) (list 1 2 3))
+(check-expect (merge (list 1 2 3) empty) (list 1 2 3))
+(check-expect (merge (list 1 2 3) (list 4 6 6)) (list 1 2 3 4 5 6))
+
+;(define (merge l1 l2) empty) ;stub
+
+(define (merge l1 l2)
+  (cond [(empty? l1) l2]
+        [(empty? l2) l1]
+        [else
+         (if (<= (first l1) (first l2))
+             (cons (first l1)
+                   (merge (rest l1) l2))
+             (cons (first l2)
+                   (merge l1 (rest l2))))]))
+```
