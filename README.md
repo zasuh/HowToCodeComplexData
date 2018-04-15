@@ -450,3 +450,44 @@
              (cons (first l2)
                    (merge l1 (rest l2))))]))
 ```
+
+- Solution for 2 One-of P4: Pattern Match
+```
+;; Functions:
+
+;; Pattern ListOflString -> Boolean
+;; Produces true if the pattern matches the ListOflString
+(check-expect (pattern-match? empty empty) empty)
+(check-expect (pattern-match? empty (list "A")) true)
+(check-expect (pattern-match? (list "B") empty) false)
+(check-expect (pattern-match? (list "A" "N" "A") (list "x" "3" "y")) true)
+(check-expect (pattern-match? (list "A" "N" "A") (list "l" "3" "y")) false)
+(check-expect (pattern-match? (list "N" "A" "N") (list "l" "a" "4")) true)
+(check-expect (pattern-match? (list "N" "A" "N") (list "l" "b" "c")) false)
+(check-expect (pattern-match? (list "A" "N" "A" "N" "A" "N")
+                              (list "V" "6" "T" "1" "Z" "4")) true)
+
+;(define (pattern-match? pat lols) empty) ;stub
+
+(define (pattern-match? pat lols)
+  (cond [(empty? pat) true]
+        [(empty? lols) false]
+        [(string=? (first pat) "A")
+         (and (alphabetic? (first lols))
+              (pattern-match? (rest pat) (rest lols)))]
+        [(string=? (first pat) "N")
+         (and (numeric? (first lols))
+              (pattern-match? (rest pat) (rest lols)))]))
+
+;; 1String -> Boolean
+;; produce true if 1s is alphabetic/numeric
+(check-expect (alphabetic? " ") false)
+(check-expect (alphabetic? "1") false)
+(check-expect (alphabetic? "a") true)
+(check-expect (numeric? " ") false)
+(check-expect (numeric? "1") true)
+(check-expect (numeric? "a") false)
+
+(define (alphabetic? 1s) (char-alphabetic? (string-ref 1s 0)))
+(define (numeric?    1s) (char-numeric?    (string-ref 1s 0)))
+```
