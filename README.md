@@ -491,3 +491,36 @@
 (define (alphabetic? 1s) (char-alphabetic? (string-ref 1s 0)))
 (define (numeric?    1s) (char-numeric?    (string-ref 1s 0)))
 ```
+
+### April 16th 2018 ###
+- Forming a local expression:
+```
+(local [(define a 1)  ; Local definitions
+        (define b 2)] ; Valid only inside local
+  (+ a b))            ; Body
+
+(local [(define p "accio")
+        (define (fetch n) (string-append p n))]
+  (fetch "portkey"))
+```
+- Hoisting/lifting:
+```
+(define a 1)
+(define b 2)
+
+(+ a
+   (local [(define b 3)]
+     (+ a b))
+   b) ;7
+
+;;=================================================
+
+(define b 1)
+
+(+ b
+   (local [(define b 2)]
+     (* b b))
+   b) ;6
+
+(define b 2) ;hoisting
+```
