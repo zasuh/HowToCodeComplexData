@@ -672,3 +672,9 @@
 
 5
 ```
+
+### April 20th 2018 ###
+- Abstraction, which is a technique for taking highly repetitive code and refactoring out 
+the identical parts to leave behind a shared helper and just the different parts of the original code. 
+The shared helper is called an abstract function because it is more general, or less detailed, than the original code.
+- Higher order functions consumes other functions and produce functions.
