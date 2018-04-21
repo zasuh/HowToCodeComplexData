@@ -716,3 +716,38 @@ The shared helper is called an abstract function because it is more general, or 
          (cons (fn (first lon))
                (map2 fn (rest lon)))]))
 ```
+- Type parameters are uppercase single letters, which can be of any type.
+- Anything you want as long as they are the same.
+```
+;; ListOfNumber -> ListOfNumber
+;; produce list of sqr of every number in lon
+(check-expect (squares empty) empty)
+(check-expect (squares (list 3 4)) (list 9 16))
+
+;(define (squares lon) empty) ;stub
+
+(define (squares lon) (map2 sqr lon))
+
+;; ListOfNumber -> ListOfNumber
+;; produce list of sqrt of every number in lon
+(check-expect (square-roots empty) empty)
+(check-expect (square-roots (list 9 16)) (list 3 4))
+
+;(define (square-roots lon) empty) ;stub
+
+(define (square-roots lon) (map2 sqrt lon))
+
+
+;; given fn and (list n0 n1 ...) produce (list (fn n0) (fn n1) ...)
+(check-expect (map2 sqr empty) empty) 
+(check-expect (map2 sqr (list 2 4)) (list 4 16))
+(check-expect (map2 sqrt (list 16 9)) (list 4 3))
+(check-expect (map2 abs (list 2 -3 4)) (list 2 3 4)) 
+            
+;; (X -> Y) (listof X) -> (listof Y)                
+(define (map2 fn lon)
+  (cond [(empty? lon) empty]
+        [else
+         (cons (fn (first lon))
+               (map2 fn (rest lon)))]))
+```
