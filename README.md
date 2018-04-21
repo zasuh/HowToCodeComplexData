@@ -678,3 +678,41 @@
 the identical parts to leave behind a shared helper and just the different parts of the original code. 
 The shared helper is called an abstract function because it is more general, or less detailed, than the original code.
 - Higher order functions consumes other functions and produce functions.
+
+### April 21st 2018 ###
+- Example of paramerization:
+```
+;; ListOfNumber -> ListOfNumber
+;; produce list of sqr of every number in lon
+(check-expect (squares empty) empty)
+(check-expect (squares (list 3 4)) (list 9 16))
+
+;(define (squares lon) empty) ;stub
+
+(define (squares lon) (map2 sqr lon))
+
+;; ListOfNumber -> ListOfNumber
+;; produce list of sqrt of every number in lon
+(check-expect (square-roots empty) empty)
+(check-expect (square-roots (list 9 16)) (list 3 4))
+
+;(define (square-roots lon) empty) ;stub
+
+(define (square-roots lon) (map2 sqrt lon))
+
+;; produce list of sqr of every number in lon
+;; produce list of sqrt of every number in lon
+;; produce list of sqrt or sqr of every number in lon
+;; given fn and (list n0 n1 ...) produce (list (fn n0) (fn n1) ...)
+
+(check-expect (map2 sqr empty) empty)
+(check-expect (map2 sqr (list 2 4)) (list 4 16))
+(check-expect (map2 sqrt (list 16 9)) (list 4 3))
+(check-expect (map2 abs (list 2 -3 4)) (list 2 3 4))
+               
+(define (map2 fn lon)
+  (cond [(empty? lon) empty]
+        [else
+         (cons (fn (first lon))
+               (map2 fn (rest lon)))]))
+```
