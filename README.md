@@ -751,3 +751,51 @@ The shared helper is called an abstract function because it is more general, or 
          (cons (fn (first lon))
                (map2 fn (rest lon)))]))
 ```
+
+### April 22nd 2018 ###
+- Built in abstract functions example:
+```
+
+; 
+; PROBLEM: 
+; 
+; Complete the design of the following functions by coding them using a 
+; built-in abstract list function.
+; 
+
+;; (listof Image) -> (listof Image)
+;; produce list of only those images that are wide?
+(check-expect (wide-only (list I1 I2 I3 I4 I5)) (list I2 I4))
+
+;(define (wide-only loi) empty) ;stub
+
+;(define (wide-only loi)        ;template
+;  (filter ... loi))
+
+(define (wide-only loi)
+  (filter wide? loi))
+
+;; (listof Image) -> Boolean
+;; are all the images in loi tall?
+(check-expect (all-tall? LOI1) false)
+(check-expect (all-tall? (list I1 I3)) true)
+
+(define (all-tall? loi) false) ;stub
+
+(define (all-tall? loi)
+  (andmap tall? loi))
+
+
+;; (listof Number) -> Number
+;; sum the elements of a list
+(check-expect (sum (list 1 2 3 4)) 10)
+
+(define (sum lon) 0) ;stub
+
+
+;; Natural -> Natural
+;; produce the sum of the first n natural numbers
+(check-expect (sum-to 3) (+ 0 1 2))
+
+(define (sum-to n) 0) ;stub    
+```
