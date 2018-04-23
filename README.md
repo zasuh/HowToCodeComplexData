@@ -858,3 +858,45 @@ The shared helper is called an abstract function because it is more general, or 
 (define (prefix-all p los)
   (map ... los))
 ```
+
+### April 23rd 2018 ###
+- Fold functions:
+```
+(require 2htdp/image)
+
+;; fold-functions-starter.rkt
+
+;; At this point in the course, the type (listof X) means:
+
+;; ListOfX is one of:
+;; - empty
+;; - (cons X ListOfX)
+;; interp. a list of X
+
+;; and the template for (listof X) is:
+
+(define (fn-for-lox lox)
+  (cond [(empty? lox) (...)]
+        [else
+         (... (first lox)
+              (fn-for-lox (rest lox)))]))
+
+; 
+; PROBLEM:
+; 
+; Design an abstract fold function for (listof X). 
+; 
+
+
+;; (X Y -> Y) Y (listof X) -> Y
+;; the abstract fold function for (listof X)
+(check-expect (fold + 0 (list 1 2 3)) 6)
+(check-expect (fold * 1 (list 1 2 3)) 6)
+(check-expect (fold string-append "" (list "a" "b" "c" "d" "e" "f")) "abcdef")
+
+(define (fold fn b lox)
+  (cond [(empty? lox) b]
+        [else
+         (fn (first lox) ;X
+             (fold fn b (rest lox)))]))
+```
